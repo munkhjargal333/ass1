@@ -16,7 +16,7 @@ public class ConsoleUI implements UI {
         System.out.println(producer.countCards() + " cards to go...");
         int repCount = 0;
 
-        while(producer.isComplete(repetitions)) {
+        while(!producer.isComplete(repetitions)) {
     
             System.out.println("Started repetition " + (repCount + 1));
             long start = System.currentTimeMillis();
@@ -31,27 +31,30 @@ public class ConsoleUI implements UI {
             producer.reorganize();
     
             System.out.println("Finished repetition " + (repCount + 1));
+            repCount++;
         }
     
         System.out.println();
         System.out.println("===== 🧠 Performance Summary =====");
     
+        System.out.println(repCount);
         double avgTimePerCard = totalTime / (producer.getCards().size() * repCount);
         if (avgTimePerCard < 5) {
             System.out.println("🏆 Achievement Unlocked: FAST (avg. " + String.format("%.2f", avgTimePerCard) + " sec/card)");
+
+            if (producer.checkLastCycle(repCount)) {
+                System.out.println("🎯 Achievement Unlocked: CORRECT (All answers correct in last cycle)");
+            }
+    
+            if (producer.maxAnswer() >= 5) {
+                System.out.println("🔁 Achievement Unlocked: REPEAT (Some card answered 5+ times)");
+            }  
+    
+            if (producer.countMaxCorrect() >= 3) {
+                System.out.println("💪 Achievement Unlocked: CONFIDENT (Some card answered correctly 3+ times)");
+            }
         }
     
-        if (producer.checkLastCycle(repCount)) {
-            System.out.println("🎯 Achievement Unlocked: CORRECT (All answers correct in last cycle)");
-        }
-
-        if (producer.maxAnswer() >= 5) {
-            System.out.println("🔁 Achievement Unlocked: REPEAT (Some card answered 5+ times)");
-        }  
-
-        if (producer.countMaxCorrect() >= 3) {
-            System.out.println("💪 Achievement Unlocked: CONFIDENT (Some card answered correctly 3+ times)");
-        }
     
         System.out.println("=================================");
         System.out.println("✅ Study session complete!");

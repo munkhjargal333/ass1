@@ -15,15 +15,6 @@ import org.example.order.prioritization.WorstFirstSorter;
 public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length == 0 || Arrays.asList(args).contains("--help")) {
-            // System.out.println("""
-            // Usage: flashcard <cards-file> [options]
-            // Options:
-            //   --help                     Show help message
-            //   --order <order>           [random | worst-first | recent-mistakes-first] (default: random)
-            //   --repetitions <num>       Number of correct answers required (default: 1)
-            //   --invertCards             Flip question and answer
-            // """);
-
             System.out.println("""
             flashcard <cards-file> [options]
             Options:
