@@ -6,7 +6,6 @@ org/example/card/CardStatus.class
 org/example/card/FlashCard.class
 org/example/ConsoleUI.class
 org/example/order/CombinedCardOrganizer.class
-org/example/Int.class
 org/example/order/repetation/CardRepeatOrganizers.class
 org/example/order/CardOrganizer.class
 org/example/order/repetation/CardRepeatOrganizers$CardStatus.class

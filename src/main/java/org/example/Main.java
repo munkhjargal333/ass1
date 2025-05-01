@@ -10,22 +10,33 @@ import org.example.data.CardStore;
 import org.example.order.CardDeck;
 import org.example.order.CardOrganizer;
 import org.example.order.prioritization.RecentMistakesFirstSorter;
+import org.example.order.prioritization.WorstFirstSorter;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length == 0 || Arrays.asList(args).contains("--help")) {
+            // System.out.println("""
+            // Usage: flashcard <cards-file> [options]
+            // Options:
+            //   --help                     Show help message
+            //   --order <order>           [random | worst-first | recent-mistakes-first] (default: random)
+            //   --repetitions <num>       Number of correct answers required (default: 1)
+            //   --invertCards             Flip question and answer
+            // """);
+
             System.out.println("""
-            Usage: flashcard <cards-file> [options]
+            flashcard <cards-file> [options]
             Options:
-              --help                     Show help message
-              --order <order>           [random | worst-first | recent-mistakes-first] (default: random)
-              --repetitions <num>       Number of correct answers required (default: 1)
-              --invertCards             Flip question and answer
-            """);
+                --help Тусламжийн мэдээлэл харуулах
+                --order <order> Зохион байгуулалтын төрөл, default нь "random" [сонголт: "random", "worst-first", "recent-mistakes-first"]
+                --repetitions <num> Нэг картыг хэдэн удаа зөв хариулахыг шаардлага болгож тохируулна. Хэрэв тодорхойлохгүй бол зөвхөн нэг удаа асууна.
+                --invertCards Тохиргоо идэвхэжсэн бол картын асуулт, хариултыг сольж харуулна.
+                Default: false
+                """);
             return;
         }
 
-        String file =  "flashcards.txt";  //args[0];
+        String file =  args[0];
         int repetitions = 1;
         boolean invert = false;
         String order = "random";
@@ -40,11 +51,9 @@ public class Main {
 
         CardStore cards = CardLoader.loadCards(file, invert);
 
-        //CardOrganizer organizer = (CardOrganizer) new RecentMistakesFirstSorter();
-
         CardOrganizer organizer = switch (order) {
             case "recent-mistakes-first" -> (CardOrganizer) new RecentMistakesFirstSorter();
-            //case "worst-first" -> (CardOrganizer) new 
+            case "worst-first" -> (CardOrganizer) new WorstFirstSorter();
             default -> (CardOrganizer) new RecentMistakesFirstSorter();
         };
         

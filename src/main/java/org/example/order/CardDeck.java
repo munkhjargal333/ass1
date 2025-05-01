@@ -36,17 +36,21 @@ public class CardDeck {
     public int countMaxCorrect() {
         int maxCorrect = 0;
         for (CardStatus st : status) {
-            int correct = 0;
-            for (Boolean result : st.getResults()) {
-                if (result) {
-                    correct++;
-                }
-            }
-            if (correct > maxCorrect) {
-                maxCorrect = correct;
+            if(st.countCorrect()> maxCorrect){
+                maxCorrect = st.countAnswer();
             }
         }
         return maxCorrect;
+    }
+
+    public int maxAnswer(){
+        int maxAnswer = 0;
+        for (CardStatus st : status) {
+            if(st.countAnswer()> maxAnswer){
+                maxAnswer = st.countAnswer();
+            }
+        }
+        return maxAnswer;
     }
     
 
@@ -65,8 +69,14 @@ public class CardDeck {
     }
 
 
-    public boolean isComplete() {
-        return status.isEmpty();
+    public boolean isComplete(int repetitions) {
+        Boolean flag = true;
+        for (CardStatus st : status) {
+            if(st.countCorrect() < repetitions){
+               flag = false;
+            }
+        }
+        return flag;
     }
 
 

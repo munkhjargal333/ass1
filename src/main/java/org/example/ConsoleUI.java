@@ -14,10 +14,11 @@ public class ConsoleUI implements UI {
     public void studyCards(CardDeck producer, int repetitions) {
         double totalTime = 0;
         System.out.println(producer.countCards() + " cards to go...");
+        int repCount = 0;
 
-        for (int i = 0; i < repetitions; i++) {
+        while(producer.isComplete(repetitions)) {
     
-            System.out.println("Started repetition " + (i + 1) + " of " + repetitions);
+            System.out.println("Started repetition " + (repCount + 1));
             long start = System.currentTimeMillis();
     
             cueAllCards(producer);
@@ -29,25 +30,26 @@ public class ConsoleUI implements UI {
             System.out.println("Reached the end of the card deck, reorganizing...");
             producer.reorganize();
     
-            System.out.println("Finished repetition " + (i + 1) + " of " + repetitions);
+            System.out.println("Finished repetition " + (repCount + 1));
         }
     
         System.out.println();
         System.out.println("===== 🧠 Performance Summary =====");
     
-        double avgTimePerCard = totalTime / (producer.getCards().size() * repetitions);
+        double avgTimePerCard = totalTime / (producer.getCards().size() * repCount);
         if (avgTimePerCard < 5) {
             System.out.println("🏆 Achievement Unlocked: FAST (avg. " + String.format("%.2f", avgTimePerCard) + " sec/card)");
         }
     
-        if (producer.checkLastCycle(repetitions)) {
+        if (producer.checkLastCycle(repCount)) {
             System.out.println("🎯 Achievement Unlocked: CORRECT (All answers correct in last cycle)");
         }
-    
-        int max = producer.countMaxCorrect();
-        if (max >= 5) {
+
+        if (producer.maxAnswer() >= 5) {
             System.out.println("🔁 Achievement Unlocked: REPEAT (Some card answered 5+ times)");
-        } else if (max >= 3) {
+        }  
+
+        if (producer.countMaxCorrect() >= 3) {
             System.out.println("💪 Achievement Unlocked: CONFIDENT (Some card answered correctly 3+ times)");
         }
     
