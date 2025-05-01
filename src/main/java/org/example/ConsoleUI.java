@@ -18,7 +18,7 @@ public class ConsoleUI implements UI {
 
         while(!producer.isComplete(repetitions)) {
     
-            System.out.println("Started repetition " + (repCount + 1));
+            System.out.println("-------------Started repetition " + (repCount + 1));
             long start = System.currentTimeMillis();
     
             cueAllCards(producer);
@@ -30,14 +30,13 @@ public class ConsoleUI implements UI {
             System.out.println("Reached the end of the card deck, reorganizing...");
             producer.reorganize();
     
-            System.out.println("Finished repetition " + (repCount + 1));
+            System.out.println("-------------Finished repetition " + (repCount + 1));
             repCount++;
         }
     
         System.out.println();
         System.out.println("===== 🧠 Performance Summary =====");
     
-        System.out.println(repCount);
         double avgTimePerCard = totalTime / (producer.getCards().size() * repCount);
         if (avgTimePerCard < 5) {
             System.out.println("🏆 Achievement Unlocked: FAST (avg. " + String.format("%.2f", avgTimePerCard) + " sec/card)");

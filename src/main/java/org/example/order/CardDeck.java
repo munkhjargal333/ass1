@@ -26,7 +26,7 @@ public class CardDeck {
         boolean flag = true;
         for (CardStatus st : status) {
             
-        if(!st.getResults().get(rep)){
+        if(!st.getResults().get(rep-1)){
             flag = false;
            }
         }
