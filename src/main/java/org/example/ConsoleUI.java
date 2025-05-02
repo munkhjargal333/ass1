@@ -14,11 +14,11 @@ public class ConsoleUI implements UI {
     public void studyCards(CardDeck producer, int repetitions) {
         double totalTime = 0;
         System.out.println(producer.countCards() + " cards to go...");
-        int repCount = 0;
+        int repCount = 1;
 
         while(!producer.isComplete(repetitions)) {
     
-            System.out.println("-------------Started repetition " + (repCount + 1));
+            System.out.println("-------------Started repetition " + repCount);
             long start = System.currentTimeMillis();
     
             cueAllCards(producer);
@@ -30,7 +30,7 @@ public class ConsoleUI implements UI {
             System.out.println("Reached the end of the card deck, reorganizing...");
             producer.reorganize();
     
-            System.out.println("-------------Finished repetition " + (repCount + 1));
+            System.out.println("-------------Finished repetition " + repCount);
             repCount++;
         }
     
