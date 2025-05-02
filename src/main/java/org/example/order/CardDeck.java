@@ -37,7 +37,7 @@ public class CardDeck {
         int maxCorrect = 0;
         for (CardStatus st : status) {
             if(st.countCorrect()> maxCorrect){
-                maxCorrect = st.countAnswer();
+                maxCorrect = st.countCorrect();
             }
         }
         return maxCorrect;

@@ -45,11 +45,11 @@ public class ConsoleUI implements UI {
                 System.out.println("🎯 Achievement Unlocked: CORRECT (All answers correct in last cycle)");
             }
     
-            if (producer.maxAnswer() >= 5) {
+            if (producer.maxAnswer() == 5) {
                 System.out.println("🔁 Achievement Unlocked: REPEAT (Some card answered 5+ times)");
             }  
     
-            if (producer.countMaxCorrect() >= 3) {
+            if (producer.countMaxCorrect() == 3) {
                 System.out.println("💪 Achievement Unlocked: CONFIDENT (Some card answered correctly 3+ times)");
             }
         }
